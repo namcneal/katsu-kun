@@ -8,7 +8,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = genki-chan
+TARGET = katsu-kun
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -22,23 +22,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+INCLUDEPATH  += include
 
 SOURCES += \
-        main.cpp \
-        mainwindow.cpp \
-    Verb.cpp \
-    main.cpp \
-    mainwindow.cpp \
-    Verb.cpp
+    src/main.cpp \
+    src/mainwindow.cpp \
+    src/Verb.cpp
 
 HEADERS += \
-        mainwindow.h \
-    Verb.h \
-    mainwindow.h \
-    Verb.h
+    include/mainwindow.h \
+    include/Verb.h
 
 FORMS += \
         mainwindow.ui
 
 DISTFILES += \
-    Resources/SourceHanSerif-Regular.otf
+    resources/SourceHanSerif-Regular.otf
