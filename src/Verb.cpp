@@ -1,31 +1,71 @@
-#include "Verb.h"
+#include "verb.h"
 
 Verb::Verb()
 {
-    verbType = "";
-    dictionaryKanji = "";
-    dictionaryKana = "";
+    this->kanji = QString::fromUtf8( "漢字る" );
+    this->kana  = QString::fromUtf8( "かなる" );
+    this->meaning = QString("Verb not loaded");
+    this->form    = QString("Invalid");
 }
 
-Verb::Verb(QString type, QString kanji, QString kana)
-{
-    verbType = type;
-    dictionaryKanji = kanji;
-    dictionaryKana = kana;
+Verb::Verb(QString kanji, QString kana, QString meaning){
+    this->kanji = kanji;
+    this->kana  = kana;
+    this->meaning = meaning;
+    this->form    = QString("Dictionary");
 }
 
-Verb::~Verb()
-{
+QString Verb::getMasu(bool tense, bool polarity){
+    QString masu = this->getStem();
 
+    // Present positive
+    if (tense && polarity){
+        masu += QString::fromUtf8( "ます" );
+    }
+
+    // Present negative
+    else if (tense && !polarity){
+        masu += QString::fromUtf8( "ません" );
+    }
+
+    // Past positive
+    else if (!tense && polarity){
+        masu += QString::fromUtf8( "ました" );
+    }
+
+    // Past negative
+    else{
+        masu += QString::fromUtf8( "ませんでした" );
+    }
+
+    return masu;
 }
 
-QString* Verb::getDictionary()
-{
-    QString* kanjiKanaPair = new QString[2];
-    kanjiKanaPair[0] = dictionaryKanji;
-    kanjiKanaPair[1] = dictionaryKana;
-    return kanjiKanaPair;
+QString Verb::getTai(bool tense, bool polarity){
+    QString tai = this->getStem();
+
+    // Present positive
+    if (tense && polarity){
+        tai += QString::fromUtf8( "たい" );}
+
+    // Present negative
+    else if (tense && !polarity){
+        tai += QString::fromUtf8( "たくない" );
+    }
+
+    // Past positive
+    else if (!tense && polarity){
+        tai += QString::fromUtf8( "たかった" );
+    }
+
+    // Past negative
+    else{
+        tai += QString::fromUtf8( "たくなかった" );
+    }
+
+    return  tai;
 }
 
-
-
+QString Verb::getTara(bool polarity){
+     return this->getShort(0, polarity) + QString::fromUtf8("ら");
+}

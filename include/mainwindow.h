@@ -1,7 +1,9 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QFile>
 #include <QMainWindow>
+#include <QTextStream>
 
 namespace Ui {
 class MainWindow;

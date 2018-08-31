@@ -1,40 +1,48 @@
 #ifndef VERB_H
 #define VERB_H
 
-#include <QString>
+#include <map>
 
+#include <QString>
 
 class Verb
 {
 public:
     Verb();
-    Verb(QString type, QString kanji, QString kana);
-    ~Verb();
+    Verb(QString kanji, QString kana, QString meaning);
 
-    // Getters and setters for the booleans that determine what forms are valid for this verb
-    void setPotentialBool(bool value);
-    void setPassiveBool(bool value);
-    void setCausativeBool(bool value);
-    void setCausativePassiveBool(bool value);
+    ~Verb(){};
 
-    void getPotentialBool(bool value);
-    void getPassiveBool(bool value);
-    void getCausativeBool(bool value);
-    void getCausativePassiveBool(bool value);
+    virtual Verb* toPotential(){};
+    virtual Verb* toPassive(){};
+    virtual Verb* toCausative(){};
+    virtual Verb* toCausativePassive(){};
 
 
-    QString* getDictionary();
+    /*
+     * Tense boolean: 1 -> Non-past and 0 -> Past
+     * Polarity     : 1 -> Positive and 1 -> Negative
+     *
+    */
 
+    virtual QString getStem(){};
 
-private:
-    // The booleans that determine what forms are valid for the verb
-    // For example, 'aru' does not have a causative form, so it would have causative=False
-    bool potential, passive, causative, causativePassive;
+    virtual QString getShort(bool tense, bool polarity){};
+    QString getMasu(bool tense, bool polarity);
 
+    virtual QString getTe(bool polarity){};
 
-    QString verbType;
-    QString dictionaryKanji;
-    QString dictionaryKana;
+    QString getTai(bool tense, bool polarity);
+
+    QString getTara(bool polarity);
+    virtual QString getBa(bool polarity){};
+
+    QString form;
+protected:
+    QString kanji;
+    QString kana;
+    QString meaning;
+
 };
 
 #endif // VERB_H
